@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lens_front" formatted="true">前摄</string>
+  <string name="lens_back" formatted="true">后摄</string>
+  <string name="preview" formatted="true">预览</string>
+  <string name="avatar" formatted="true">模型</string>
+  <string name="render_on" formatted="true">渲染:开</string>
+  <string name="render_off" formatted="true">渲染:关</string>
+  <string name="render_unk" formatted="true">渲染?</string>
+  <string name="cap_btn" formatted="true">上限 %1$dfps ▾</string>
+  <string name="cap_title" formatted="true">帧率上限</string>
+  <string name="stats" formatted="true">cam %1$.0f / 推理 %2$.0f fps [%3$s] %4$dx%5$d\n转换 %6$.1f pose %7$.1f 手 %8$.1f 脸 %9$.1f 等待 %10$.1f 总 %11$.1f ms\nVMC %12$s %13$.0f/s · 电池 %14$.1f°C · 热状态 %15$s%16$s</string>
+  <string name="th0" formatted="true">正常</string>
+  <string name="th1" formatted="true">轻微</string>
+  <string name="th2" formatted="true">中等</string>
+  <string name="th3" formatted="true">严重</string>
+  <string name="th4" formatted="true">危急</string>
+  <string name="th5" formatted="true">紧急</string>
+  <string name="th6" formatted="true">关机</string>
+  <string name="vmc_host_hint" formatted="true">电脑局域网 IP，如 192.168.1.5</string>
+  <string name="vmc_port_hint" formatted="true">端口</string>
+  <string name="vmc_host_label" formatted="true">接收端 IP</string>
+  <string name="vmc_port_label" formatted="true">端口（VSeeFace/Warudo 默认 39539）</string>
+  <string name="vmc_app_label" formatted="true">接收软件</string>
+  <string name="vmc_title" formatted="true">VMC 发送</string>
+  <string name="vmc_start" formatted="true">开始发送</string>
+  <string name="vmc_stop" formatted="true">停止发送</string>
+  <string name="cancel" formatted="true">取消</string>
+  <string name="vmc_need_ip" formatted="true">请填写 IP</string>
+  <string name="vmc_fail" formatted="true">VMC 设置失败（页面还没加载完或没加载 VRM 模型）：%1$s</string>
+  <string name="engine_title" formatted="true">推理后端</string>
+  <string name="engine_legacy" formatted="true">MediaPipe（旧）</string>
+  <string name="fallback" formatted="true">（回退）</string>
+  <string name="diag" formatted="true">det %1$.2f · pose %2$.2f · 手 %3$.2f/%4$.2f · 脸 %5$.2f%6$s</string>
+  <string name="diag_err" formatted="true">\n错误 %1$s</string>
+  <string name="mode0" formatted="true">混合</string>
+  <string name="mode1" formatted="true">全GPU</string>
+  <string name="mode2" formatted="true">全CPU</string>
+  <string name="cam_fail" formatted="true">相机绑定失败：%1$s</string>
+  <string name="cam_nofps" formatted="true">相机无画面，已去掉帧率锁重试</string>
+  <string name="lens_ext" formatted="true">外接</string>
+  <string name="lens_title" formatted="true">摄像头</string>
+  <string name="res_title" formatted="true">分辨率（HAL 实际尺寸）</string>
+  <string name="camfps_title" formatted="true">相机帧率上限（* = 软件丢帧）</string>
+  <string name="camfps_btn" formatted="true">相机 %1$d ▾</string>
+</resources>

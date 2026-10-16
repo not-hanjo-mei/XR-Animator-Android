@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lens_front" formatted="true">Front cam</string>
+  <string name="lens_back" formatted="true">Rear cam</string>
+  <string name="preview" formatted="true">Preview</string>
+  <string name="avatar" formatted="true">Avatar</string>
+  <string name="render_on" formatted="true">Render: On</string>
+  <string name="render_off" formatted="true">Render: Off</string>
+  <string name="render_unk" formatted="true">Render ?</string>
+  <string name="cap_btn" formatted="true">Cap %1$dfps ▾</string>
+  <string name="cap_title" formatted="true">FPS cap</string>
+  <string name="stats" formatted="true">cam %1$.0f / infer %2$.0f fps [%3$s] %4$dx%5$d\nconv %6$.1f pose %7$.1f hand %8$.1f face %9$.1f wait %10$.1f total %11$.1f ms\nVMC %12$s %13$.0f/s · battery %14$.1f°C · thermal %15$s%16$s</string>
+  <string name="th0" formatted="true">normal</string>
+  <string name="th1" formatted="true">light</string>
+  <string name="th2" formatted="true">moderate</string>
+  <string name="th3" formatted="true">severe</string>
+  <string name="th4" formatted="true">critical</string>
+  <string name="th5" formatted="true">emergency</string>
+  <string name="th6" formatted="true">shutdown</string>
+  <string name="vmc_host_hint" formatted="true">PC LAN IP, e.g. 192.168.1.5</string>
+  <string name="vmc_port_hint" formatted="true">Port</string>
+  <string name="vmc_host_label" formatted="true">Receiver IP</string>
+  <string name="vmc_port_label" formatted="true">Port (VSeeFace/Warudo default 39539)</string>
+  <string name="vmc_app_label" formatted="true">Receiver app</string>
+  <string name="vmc_title" formatted="true">VMC output</string>
+  <string name="vmc_start" formatted="true">Start</string>
+  <string name="vmc_stop" formatted="true">Stop</string>
+  <string name="cancel" formatted="true">Cancel</string>
+  <string name="vmc_need_ip" formatted="true">Enter an IP</string>
+  <string name="vmc_fail" formatted="true">VMC setup failed (page not loaded or no VRM model): %1$s</string>
+  <string name="engine_title" formatted="true">Inference backend</string>
+  <string name="engine_legacy" formatted="true">MediaPipe (legacy)</string>
+  <string name="fallback" formatted="true"> (fallback)</string>
+  <string name="diag" formatted="true">det %1$.2f · pose %2$.2f · hand %3$.2f/%4$.2f · face %5$.2f%6$s</string>
+  <string name="diag_err" formatted="true">\nError %1$s</string>
+  <string name="mode0" formatted="true">Hybrid</string>
+  <string name="mode1" formatted="true">All GPU</string>
+  <string name="mode2" formatted="true">All CPU</string>
+  <string name="cam_fail" formatted="true">Camera bind failed: %1$s</string>
+  <string name="cam_nofps" formatted="true">No camera frames, retrying without FPS lock</string>
+  <string name="lens_ext" formatted="true">External</string>
+  <string name="lens_title" formatted="true">Camera</string>
+  <string name="res_title" formatted="true">Resolution (from HAL)</string>
+  <string name="camfps_title" formatted="true">Camera FPS limit (* = software drop)</string>
+  <string name="camfps_btn" formatted="true">cam %1$d ▾</string>
+</resources>

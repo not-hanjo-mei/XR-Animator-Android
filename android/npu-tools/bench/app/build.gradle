@@ -1,0 +1,50 @@
+plugins {
+  id 'com.android.application'
+  id 'org.jetbrains.kotlin.android'
+}
+android {
+  namespace 'org.dpdns.hanjomei.xraa.bench'
+  compileSdk 34
+  buildToolsVersion "34.0.0"
+  defaultConfig {
+    applicationId "org.dpdns.hanjomei.xraa.bench"
+    minSdk 29
+    targetSdk 34
+    versionCode 1
+    versionName "0.1.0-npubench"
+    ndk { abiFilters 'arm64-v8a' }
+  }
+  signingConfigs {
+    xra {
+      // Optional release key: create keystore.properties (storeFile, storePassword, keyAlias, keyPassword)
+      // in the project root. Without it, release builds use the local debug key.
+      def kp = rootProject.file('keystore.properties')
+      if (kp.exists()) {
+        def p = new Properties(); kp.withInputStream { p.load(it) }
+        storeFile rootProject.file(p['storeFile']); storePassword p['storePassword']
+        keyAlias p['keyAlias']; keyPassword p['keyPassword']
+      } else {
+        def d = new File(System.getProperty('user.home'), '.android/debug.keystore')
+        storeFile d; storePassword 'android'; keyAlias 'androiddebugkey'; keyPassword 'android'
+      }
+    }
+  }
+  buildTypes { release { minifyEnabled false; signingConfig signingConfigs.xra } }
+  compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+  kotlinOptions { jvmTarget = '17' }
+  androidResources { noCompress 'tflite', 'bin' }
+  packagingOptions {
+    jniLibs {
+      useLegacyPackaging true
+      excludes += ['**/libQnnDsp*.so', '**/libQnnHtpV68*.so', '**/libQnnHtpV69*.so', '**/libQnnHtpV73*.so', '**/libQnnHtpV79*.so', '**/libQnnHtpV81*.so', '**/libQnnGpu.so']
+    }
+  }
+}
+dependencies {
+  def lt = '1.4.2'
+  implementation "com.google.ai.edge.litert:litert:$lt"
+  implementation "com.google.ai.edge.litert:litert-gpu:$lt"
+  implementation "com.google.ai.edge.litert:litert-gpu-api:$lt"
+  implementation 'com.qualcomm.qti:qnn-litert-delegate:2.51.0'
+  implementation 'com.qualcomm.qti:qnn-runtime:2.51.0'
+}

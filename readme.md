@@ -1,5 +1,9 @@
 ﻿# XR Animator
 
+> **XRAA (XR Animator for Android)** - this fork adds a native Android app that runs camera capture and
+> landmark inference on the phone (NPU/GPU), runs XR Animator's solver in a WebView, and sends VMC over
+> Wi-Fi. See [`android/`](android/README.md) for details and build instructions.
+
 ### Full-body, real-time motion tracking with a single webcam, on your PC and web browser
 
 <p align="center">
