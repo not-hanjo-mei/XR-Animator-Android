@@ -2,7 +2,7 @@
 """Build assets/web (offline pack for sao.animetheme.com) from crawled URL lists.
 usage: build_webpack.py reqs.json [more.json ...]   (reqs = {url: [status, size, type]} from work/offline/crawl.py)
 Extra paths (mocap worker chain, not reached by the headless crawl) are in EXTRA."""
-import sys, json, os, hashlib, urllib.request, urllib.parse, shutil
+import sys, json, os, hashlib, urllib.request, urllib.parse, urllib.error, shutil
 ORIGIN = 'https://sao.animetheme.com'
 EXTRA = ['/js/pose_worker.js', '/js/pose_lib.js', '/js/mocap_lib_module.js', '/js/one_euro_filter.js',
          '/js/facemesh_worker.js', '/js/facemesh_lib.js', '/js/facemesh_triangulation.json']
@@ -21,8 +21,11 @@ paths = sorted(p for p in paths if not any(s in p for s in SKIP))
 shutil.rmtree(out, ignore_errors=True); os.makedirs(out + '/f')
 idx = {}; total = 0
 for p in paths:
-    with urllib.request.urlopen(urllib.request.Request(ORIGIN + p, headers={'User-Agent': 'XRA-Native'}), timeout=60) as h:
-        b = h.read(); et = h.headers.get('ETag', '')
+    try:
+        with urllib.request.urlopen(urllib.request.Request(ORIGIN + p, headers={'User-Agent': 'XRA-Native'}), timeout=60) as h:
+            b = h.read(); et = h.headers.get('ETag', '')
+    except urllib.error.HTTPError as e:
+        print('SKIP', e.code, p); continue
     name = 'f/' + hashlib.sha1(p.encode()).hexdigest()
     open(out + '/' + name, 'wb').write(b)
     ext = p.rsplit('/', 1)[-1].rsplit('.', 1)[-1].lower() if '.' in p.rsplit('/', 1)[-1] else ''

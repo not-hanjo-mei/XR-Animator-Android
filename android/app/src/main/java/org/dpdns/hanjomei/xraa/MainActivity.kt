@@ -721,16 +721,17 @@ class MainActivity : AppCompatActivity() {
                 path.endsWith("/js/SA_system_emulation.min.js") -> patched(uri, path) { s0 ->
                     // streamer mode: take the desktop VMC branch (ends with "hide 3D avatar"), default to
                     // full-body mocap instead of the mobile face-only default, and keep the camera/mesh view
-                    var s = replaceAll(s0, "if(webkit_electron_mode&&MMD_SA.THREEX.enabled){i=!!(MMD_SA_options.user_camera.streamer_mode.VMC_sender_enabled",
-                        "if((webkit_electron_mode||self.__xra_native)&&MMD_SA.THREEX.enabled){i=!!(MMD_SA_options.user_camera.streamer_mode.VMC_sender_enabled")
+                    // minified names change between upstream releases, so match identifiers with \w+
+                    var s = replaceRe(s0, Regex("""if\(webkit_electron_mode&&MMD_SA\.THREEX\.enabled\)\{(\w+)=!!\(MMD_SA_options\.user_camera\.streamer_mode\.VMC_sender_enabled"""),
+                        "if((webkit_electron_mode||self.__xra_native)&&MMD_SA.THREEX.enabled){$1=!!(MMD_SA_options.user_camera.streamer_mode.VMC_sender_enabled")
                     s = replaceAll(s, "is_mobile?System._browser.translation.get(\"XR_Animator.UI.streamer_mode.mocap_initializing.face\"",
                         "(is_mobile&&!self.__xra_native)?System._browser.translation.get(\"XR_Animator.UI.streamer_mode.mocap_initializing.face\"")
-                    s = replaceAll(s, "if(Ye.initialized&&Ye.visible)Ye.hide();t()}}",
-                        "if(Ye.initialized&&Ye.visible&&!self.__xra_native)Ye.hide();t()}}")
+                    s = replaceRe(s, Regex("""if\((\w+)\.initialized&&\1\.visible\)\1\.hide\(\);(\w+)\(\)\}\}"""),
+                        "if($1.initialized&&$1.visible&&!self.__xra_native)$1.hide();$2()}}")
                     // the mesh canvas copies objectFit from the (hidden) video canvas, which is "" -> "fill":
                     // its window box keeps the screen aspect, so any non-matching camera aspect got stretched
-                    replaceAll(s, "o.objectFit=e.objectFit}",
-                        "o.objectFit=e.objectFit||(self.__xra_native?\"contain\":\"\")}")
+                    replaceRe(s, Regex("""(\w+)\.objectFit=(\w+)\.objectFit\}"""),
+                        "$1.objectFit=$2.objectFit||(self.__xra_native?\"contain\":\"\")}")
                 }
                 path.endsWith("/js/osc.min.js") -> patched(uri, path) { s ->
                     s + assets.open("inject/osc_append.js").bufferedReader().readText()
@@ -749,6 +750,12 @@ class MainActivity : AppCompatActivity() {
         val n = s.split(a).size - 1
         Log.i(TAG, "patch '${a.take(40)}…' matched $n time(s)")
         return s.replace(a, b)
+    }
+
+    private fun replaceRe(s: String, re: Regex, b: String): String {
+        val n = re.findAll(s).count()
+        if (n == 0) Log.w(TAG, "patch /${re.pattern.take(40)}…/ matched 0 times") else Log.i(TAG, "patch /${re.pattern.take(40)}…/ matched $n time(s)")
+        return re.replace(s, b)
     }
 
     private fun patched(uri: Uri, key: String, fn: (String) -> String): WebResourceResponse {
